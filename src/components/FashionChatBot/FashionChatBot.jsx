@@ -14,7 +14,13 @@ const bodyCls = `${cls}__body`;
 const footerCls = `${cls}__footer`;
 
 export const FashionChatBot = ({ className, chatEndpoint }) => {
-  const [chatMessages, setChatMessages] = useState([]);
+  const [chatMessages, setChatMessages] = useState([
+    {
+      id: Date.now().toString(),
+      type: "chatbot",
+      message: "Hi, how can I help you?",
+    },
+  ]);
   const [inputMessage, setInputMessage] = useState("");
 
   const handleInputChange = (e) => {
@@ -45,9 +51,7 @@ export const FashionChatBot = ({ className, chatEndpoint }) => {
   return (
     <div className={classNames(cls, className)}>
       <div className={headerCls}>
-        <span className={`${headerCls}__title`}>
-          Conversation with fashion chatbot
-        </span>
+        <span className={`${headerCls}__title`}>GFG Fashion Chatbot</span>
       </div>
       <div className={bodyCls}>
         {chatMessages.map(({ type, message, id }) =>
@@ -61,6 +65,7 @@ export const FashionChatBot = ({ className, chatEndpoint }) => {
             <ChatbotMessage
               key={`message-id-${id}`}
               question={message}
+              message={message}
               className={`${bodyCls}__chatbot-message`}
             />
           )

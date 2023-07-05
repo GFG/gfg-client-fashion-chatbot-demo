@@ -11,29 +11,25 @@ const cls = "chatbot-message-wrapper";
 const answerCls = `${cls}__answer`;
 const avatarCls = `${cls}__avatar`;
 
-export const ChatbotMessage = ({ className, question }) => {
+export const ChatbotMessage = ({ className, question, message }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
-  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-
       try {
+        // Replace with your API endpoint
         // const response = await axios.get("https://api.example.com/data", {
         //   question,
         // });
-
-        // Replace with your API endpoint
         setData({
           answer: "This is the anwser from the chat bot",
         });
         setTimeout(() => {
           setIsLoading(false);
-        }, 3000);
+        }, 2000);
       } catch (error) {
-        setIsError(true);
         setData({
           answer: "Sorry, I don't understand your question",
         });
@@ -49,7 +45,11 @@ export const ChatbotMessage = ({ className, question }) => {
         <FontAwesomeIcon icon={faRobot} className={`${avatarCls}__icon`} />
       </div>
       <div className={answerCls}>
-        {isLoading ? "..." : data.answer}
+        {message && message.length > 0
+          ? message
+          : isLoading
+          ? "....."
+          : data.answer}
         <div className={`${answerCls}__arrow`}></div>
       </div>
     </div>
@@ -59,4 +59,5 @@ export const ChatbotMessage = ({ className, question }) => {
 ChatbotMessage.propTypes = {
   className: PropTypes.string,
   question: PropTypes.string,
+  message: PropTypes.string,
 };
