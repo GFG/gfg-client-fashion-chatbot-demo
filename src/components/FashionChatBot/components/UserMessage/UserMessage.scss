@@ -1,0 +1,42 @@
+.user-message-wrapper {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  &__message {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    color: #585858;
+    font-size: 0.9rem;
+    font-weight: medium;
+    padding: 10px;
+    position: relative;
+    text-align: left;
+
+    &__arrow {
+      border-bottom: 8px solid transparent;
+      border-left: 8px solid #f1f1f1;
+      border-top: 8px solid transparent;
+      height: 0;
+      position: absolute;
+      right: -7px;
+      top: 13px;
+      width: 0;
+    }
+  }
+
+  &__avatar {
+    align-items: center;
+    background-color: #3d4e8d;
+    border-radius: 50%;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin-left: 12.5px;
+    width: 40px;
+
+    &__icon {
+      color: white;
+    }
+  }
+}
