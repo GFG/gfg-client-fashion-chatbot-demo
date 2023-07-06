@@ -74,7 +74,7 @@ export const FashionChatBot = ({ className, chatEndpoint }) => {
       <div className={footerCls}>
         <input
           className={`${footerCls}__input`}
-          placeholder="Write your message here"
+          placeholder="Ask your question here"
           value={inputMessage}
           onKeyDown={handleKeyPress}
           onChange={handleInputChange}
