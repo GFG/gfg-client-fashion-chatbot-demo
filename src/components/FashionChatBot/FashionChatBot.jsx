@@ -7,6 +7,8 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import "./FashionChatBot.scss";
 import { UserMessage } from "./components/UserMessage";
 import { ChatbotMessage } from "./components/ChatbotMessage";
+import parseReponse from "../../utils/parseChatbotResponse";
+import mockChatbotResponse from "../../store/mockChatbotResponse";
 
 const cls = "fashion-chat-bot-wrapper";
 const headerCls = `${cls}__header`;
@@ -17,11 +19,57 @@ export const FashionChatBot = ({ className, chatEndpoint }) => {
   const [chatMessages, setChatMessages] = useState([
     {
       id: Date.now().toString(),
-      type: "chatbot",
-      message: "Hi, how can I help you?",
+      role: "assistant",
+      content: "Hi, how can I help you?",
+      searchTermMap: {},
+      products: [],
+      show: true,
     },
   ]);
   const [inputMessage, setInputMessage] = useState("");
+  const [anwserData, setAnwserData] = useState({
+    message: "",
+    searchTermMap: {},
+    products: [],
+    show: true,
+  });
+
+  const fetchAnswerFromChatbot = async (conversation) => {
+    try {
+      // Replace with your API endpoint
+      // const response = await axios.get("https://api.example.com/data", {
+      //   chatMessages: conversation.map(({ role, content }) => ({
+      //     role,
+      //     content,
+      //   })),
+      // });
+      const chatbotAnswer = parseReponse(mockChatbotResponse);
+      setAnwserData(chatbotAnswer);
+
+      // TODO: remove setTimeout later
+      setTimeout(() => {
+        setChatMessages((chatMsgs) => {
+          const { message, searchTermMap, products, show } = chatbotAnswer;
+          chatMsgs[chatMsgs.length - 1] = {
+            ...chatMsgs[chatMsgs.length - 1],
+            content: message,
+            searchTermMap,
+            products,
+            show,
+            isLoading: false,
+          };
+
+          return [...chatMsgs];
+        });
+      }, 2000);
+    } catch (error) {
+      setAnwserData({
+        message: "Sorry, I don't understand your question",
+        searchTermMap: {},
+        products: [],
+      });
+    }
+  };
 
   const handleInputChange = (e) => {
     setInputMessage(e.target.value);
@@ -30,16 +78,23 @@ export const FashionChatBot = ({ className, chatEndpoint }) => {
   const handleSendMessage = () => {
     if (!inputMessage) return;
 
-    setChatMessages([
+    const newChatMessages = [
       ...chatMessages,
-      { id: Date.now().toString(), type: "user", message: inputMessage },
       {
-        id: Date.now().toString(),
-        type: "chatbot",
-        question: inputMessage,
+        id: `user-${Date.now().toString()}`,
+        role: "user",
+        content: inputMessage,
       },
-    ]);
+      {
+        id: `assistant-${Date.now().toString()}`,
+        role: "assistant",
+        isLoading: true,
+        content: "......",
+      },
+    ];
+    setChatMessages(newChatMessages);
     setInputMessage("");
+    fetchAnswerFromChatbot(newChatMessages.slice(0, -1));
   };
 
   const handleKeyPress = (event) => {
@@ -54,18 +109,17 @@ export const FashionChatBot = ({ className, chatEndpoint }) => {
         <span className={`${headerCls}__title`}>GFG Fashion Chatbot</span>
       </div>
       <div className={bodyCls}>
-        {chatMessages.map(({ type, message, id }) =>
-          type === "user" ? (
+        {chatMessages.map((chat) =>
+          chat.role === "user" ? (
             <UserMessage
-              key={`message-id-${id}`}
-              message={message}
+              key={`message-id-${chat.id}`}
+              message={chat.content}
               className={`${bodyCls}__user-message`}
             />
           ) : (
             <ChatbotMessage
-              key={`message-id-${id}`}
-              question={message}
-              message={message}
+              key={`message-id-${chat.id}`}
+              {...chat}
               className={`${bodyCls}__chatbot-message`}
             />
           )

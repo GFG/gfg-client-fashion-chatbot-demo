@@ -11,7 +11,7 @@ export const DefaultChatbot = {
     return (
       <div
         style={{
-          width: "400px",
+          width: "450px",
           height: "90vh",
           margin: "0 auto",
         }}
