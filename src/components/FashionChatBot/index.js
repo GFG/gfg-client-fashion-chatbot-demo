@@ -1,1 +1,1 @@
-export { FashionChatBot } from "./FashionChatBot";
+export { FashionChatBot } from './FashionChatBot';

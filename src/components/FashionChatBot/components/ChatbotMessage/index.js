@@ -1,1 +1,1 @@
-export { ChatbotMessage } from "./ChatbotMessage";
+export { ChatbotMessage } from './ChatbotMessage';

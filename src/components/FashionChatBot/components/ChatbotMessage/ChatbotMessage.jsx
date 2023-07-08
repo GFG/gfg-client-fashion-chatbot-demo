@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useMemo } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -5,7 +6,7 @@ import axios from "axios";
 
 import { SearchTerm, Product } from "./components";
 import "./ChatbotMessage.scss";
-import logo from "../../../../assets/icons/gfg-icon-2.png";
+import logo from "../../../../assets/icons/gfg-icon.png";
 
 const cls = "chatbot-message-wrapper";
 
@@ -81,7 +82,7 @@ export const ChatbotMessage = ({
         </div>
         <div className="message">
           {isLoading ? "......" : content}
-          <div className="arrow"></div>
+          <div className="arrow" />
         </div>
       </div>
       {renderSearchTerms()}
@@ -95,5 +96,6 @@ ChatbotMessage.propTypes = {
   content: PropTypes.string,
   isLoading: PropTypes.bool,
   searchTermMap: PropTypes.object,
+  show: PropTypes.bool,
   products: PropTypes.arrayOf(PropTypes.object),
 };

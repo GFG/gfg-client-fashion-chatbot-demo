@@ -1,1 +1,1 @@
-export { SearchTerm } from "./SearchTerm";
+export { SearchTerm } from './SearchTerm';
