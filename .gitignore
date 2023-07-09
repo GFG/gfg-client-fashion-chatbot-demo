@@ -9,7 +9,7 @@
 .nyc_output
 
 # production
-/build
+/dist
 
 # css which compile by sass
 src/**/*.css
