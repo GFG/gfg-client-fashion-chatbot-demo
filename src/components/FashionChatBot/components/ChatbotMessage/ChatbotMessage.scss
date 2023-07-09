@@ -37,6 +37,7 @@
       font-weight: medium;
       padding: 10px;
       max-width: 70%;
+      min-width: 28px;
       position: relative;
       text-align: left;
 
@@ -49,6 +50,17 @@
         position: absolute;
         top: 13px;
         width: 0;
+      }
+    }
+
+    .loader-dots {
+      letter-spacing: 1px;
+      &:after {
+        content: "....";
+        width: 0;
+        position: absolute;
+        overflow: hidden;
+        animation: loader-dots-animation 2s infinite;
       }
     }
   }
@@ -82,5 +94,17 @@
       margin-right: 8px;
       margin-bottom: 12px;
     }
+  }
+}
+
+@keyframes loader-dots-animation {
+  0% {
+    width: 0em;
+  }
+  50% {
+    width: 1.2em;
+  }
+  100% {
+    width: 0em;
   }
 }

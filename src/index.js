@@ -1,22 +1,19 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { FashionChatBot } from './components/FashionChatBot/FashionChatBot';
+import React from "react";
+import { createRoot } from "react-dom/client";
 
-const rootElement = document.getElementById('root');
+import { FashionChatBot } from "./components";
+import "./index.scss";
+import "animate.css";
+
+const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
 const App = () => {
-    return (
-        <div
-            style={{
-                width: '450px',
-                height: '90vh',
-                margin: '0 auto'
-            }}
-        >
-            <FashionChatBot />
-        </div>
-    );
+  return (
+    <div className="app">
+      <FashionChatBot className={"my-chat-bot"} />
+    </div>
+  );
 };
 
 root.render(<App />);

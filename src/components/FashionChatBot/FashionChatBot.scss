@@ -1,9 +1,5 @@
 .fashion-chat-bot-wrapper {
   position: relative;
-  min-width: 250px;
-  min-height: 400px;
-  max-width: 550px;
-  max-height: 90vh;
   height: 100%;
   width: 100%;
 
@@ -33,11 +29,10 @@
   }
 
   &__body {
-    // position: relative;
     height: 100%;
     width: 100%;
     display: flex;
-    flex-direction: column; /* 'column' for start, 'column-reverse' for end */
+    flex-direction: column;
     overflow-y: scroll;
     margin-bottom: 1px;
     margin-top: 4px;

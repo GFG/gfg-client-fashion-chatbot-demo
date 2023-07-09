@@ -1,3 +1,1 @@
-import { FashionChatBot } from './FashionChatBot';
-
-export { FashionChatBot };
+export { FashionChatBot } from "./FashionChatBot";

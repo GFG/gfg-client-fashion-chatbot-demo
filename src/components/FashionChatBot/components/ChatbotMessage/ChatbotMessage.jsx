@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { shuffle } from "lodash";
 
 import { SearchTerm, Product } from "./components";
 import "./ChatbotMessage.scss";
@@ -27,18 +28,20 @@ export const ChatbotMessage = ({
       return products;
     }
 
-    return Object.keys(selectedTermMap)
-      .filter((key) => selectedTermMap[key])
-      .map((term) => {
-        return searchTermMap[term].products;
-      })
-      .flat();
+    return shuffle(
+      Object.keys(selectedTermMap)
+        .filter((key) => selectedTermMap[key])
+        .map((term) => {
+          return searchTermMap[term].products;
+        })
+        .flat()
+    );
   }, [selectedTermMap, products, searchTermMap]);
 
   const renderProducts = () => {
     if (isLoading || !show || products.length === 0) return null;
     return (
-      <div className="product-list">
+      <div className="product-list animate__animated animate__fadeIn">
         {renderedProducts.map((product) => (
           <Product
             key={`${product.ConfigSku}-${product.Name.length}`}
@@ -74,14 +77,14 @@ export const ChatbotMessage = ({
   };
 
   return (
-    <div className="chatbot-answer-wrapper">
+    <div className="chatbot-answer-wrapper animate__animated animate__fadeIn">
       <div className="avatar-message">
         <div className="avatar">
           {/* <FontAwesomeIcon icon={faRobot} className="icon" /> */}
           <img src={logo} alt="avatar" />
         </div>
-        <div className="message">
-          {isLoading ? "......" : content}
+        <div className={classNames("message", isLoading ? "loader-dots" : "")}>
+          {isLoading ? "" : content}
           <div className="arrow" />
         </div>
       </div>
